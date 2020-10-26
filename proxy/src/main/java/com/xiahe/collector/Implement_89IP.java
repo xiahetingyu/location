@@ -1,7 +1,6 @@
 package com.xiahe.collector;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xiahe.config.Pool;
 import com.xiahe.core.CollectImplement;
 import com.xiahe.tools.Configuration;
 import com.xiahe.tools.NetworkTools;
@@ -46,12 +45,6 @@ public class Implement_89IP extends CollectImplement {
             }
         }
         return es;
-    }
-
-    @Override
-    public void next() {
-        Pool.Executors.execute(new Implement_QiYun());
-        super.next();
     }
 
 }
