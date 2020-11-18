@@ -1,9 +1,6 @@
 package com.xiahe.service;
 
-import com.xiahe.repository.IdentityRepository;
 import com.xiahe.tools.IdentityTools;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -19,20 +16,10 @@ import java.util.List;
 @Service
 public class IdentityServiceImp implements IdentityService {
 
-    private ApplicationContext applicationContext;
-
-    private IdentityRepository identityRepository;
-
-    @Autowired
-    public IdentityServiceImp(ApplicationContext applicationContext, IdentityRepository identityRepository) {
-        this.applicationContext = applicationContext;
-        this.identityRepository = identityRepository;
-    }
-
     @Override
     public void identity(String[] prefix, String start, String end, int sex) {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\Development\\a.txt")));
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\Development\\Cache\\identity.txt")));
             List<String> dates = IdentityTools.dates(start, end);
             List<String> sequences = IdentityTools.sequences(sex);
 
@@ -74,6 +61,11 @@ public class IdentityServiceImp implements IdentityService {
             e.printStackTrace();
         }
 
+    }
+
+    public static void main(String[] args) {
+        IdentityServiceImp identityServiceImp = new IdentityServiceImp();
+        identityServiceImp.identity(new String[]{"412724", "411627"}, "19900101", "19991231", 0);
     }
 
 }
