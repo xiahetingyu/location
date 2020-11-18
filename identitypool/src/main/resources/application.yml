@@ -1,0 +1,11 @@
+server:
+  port: 21314
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: D4D2832BAE6377D1DA7CAB151F4509602158644F
+    url: jdbc:mariadb://zhaoqing.date:3306/datapool
+  jpa:
+    open-in-view: false
