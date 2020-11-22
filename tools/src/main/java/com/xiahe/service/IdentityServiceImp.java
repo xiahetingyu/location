@@ -19,7 +19,7 @@ public class IdentityServiceImp implements IdentityService {
     @Override
     public void identity(String[] prefix, String start, String end, int sex) {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\Development\\Cache\\identity.txt")));
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\Development\\Cache\\identitys\\411528\\1995")));
             List<String> dates = IdentityTools.dates(start, end);
             List<String> sequences = IdentityTools.sequences(sex);
 
@@ -46,9 +46,7 @@ public class IdentityServiceImp implements IdentityService {
                         StringBuilder stringBuilder = new StringBuilder(temp);
                         stringBuilder.append(date);
                         stringBuilder.append(sequence);
-                        stringBuilder.append(IdentityTools.check(stringBuilder));
-                        stringBuilder.append("\n");
-                        bufferedWriter.write(stringBuilder.toString());
+                        bufferedWriter.write(IdentityTools.check(stringBuilder));
                         count++;
                     }
                 }
@@ -65,7 +63,7 @@ public class IdentityServiceImp implements IdentityService {
 
     public static void main(String[] args) {
         IdentityServiceImp identityServiceImp = new IdentityServiceImp();
-        identityServiceImp.identity(new String[]{"412724", "411627"}, "19900101", "19991231", 0);
+        identityServiceImp.identity(new String[]{"411528"}, "19950101", "19951231", 0);
     }
 
 }
