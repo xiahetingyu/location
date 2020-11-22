@@ -1,4 +1,4 @@
-package com.xiahe.tools;
+package com.xiahe.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
