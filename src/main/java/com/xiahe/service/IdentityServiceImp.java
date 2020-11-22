@@ -1,6 +1,6 @@
 package com.xiahe.service;
 
-import com.xiahe.tools.IdentityTools;
+import com.xiahe.util.IdentityTools;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
