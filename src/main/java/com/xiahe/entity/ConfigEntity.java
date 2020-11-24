@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "config")
+@Table(name = "t_config")
 public class ConfigEntity {
 
     /**
@@ -28,11 +28,11 @@ public class ConfigEntity {
     /**
      * 配置的键
      */
-    private String key;
+    private String myKey;
 
     /**
      * 配置的值
      */
-    private String value;
+    private String myValue;
 
 }

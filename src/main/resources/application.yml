@@ -7,7 +7,12 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
-    password: 1234567890
+    password: 997304393
     url: jdbc:mariadb://localhost:3306/datapool
   jpa:
+    # 视图层不打开实体对象
     open-in-view: false
+    # 显示运行sql语句
+    show-sql: true
+    # 自动生成表结构
+    generate-ddl: true

@@ -1,6 +1,9 @@
 package com.xiahe.config;
 
+import com.xiahe.exception.UtilException;
+import com.xiahe.util.LocationUtil;
 import com.xiahe.util.RSADealUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;
@@ -12,8 +15,6 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -39,7 +40,7 @@ public class LoadYmlConfiguration implements PropertySourceFactory {
             //解密配置文件
             properties = decryptYmlContent(factory.getObject());
         } catch (Exception e) {
-            System.err.println("createPropertySource error. " + e.getMessage());
+            LocationUtil.printException(new UtilException("createPropertySource error.", e));
         }
 
         return new PropertiesPropertySource(name, properties);
@@ -54,7 +55,7 @@ public class LoadYmlConfiguration implements PropertySourceFactory {
      */
     private FileSystemResource getYmlLocation(String ymlName) throws MalformedURLException {
         File currentPath = new File(ResourceUtils.extractArchiveURL(this.getClass().getResource("/")).getPath());
-        currentPath = isRunningWithJar() ? currentPath.getParentFile() : new File(currentPath.getParentFile().getParentFile(), "/src/main/");
+        currentPath = LocationUtil.isRunningWithJar() ? currentPath.getParentFile() : new File(currentPath.getParentFile().getParentFile(), "/src/main/");
         File ymlFile = new File(new File(currentPath, "resources"), ymlName);
         return new FileSystemResource(ymlFile.getPath());
     }
@@ -73,23 +74,13 @@ public class LoadYmlConfiguration implements PropertySourceFactory {
             //尝试解密
             String key = "spring.datasource.password";
             String publicKey = IOUtils.toString(this.getClass().getResource("/key/pri.pem"));
-            properties.setProperty(key, RSADealUtil.privateDecrypt(publicKey, properties.getProperty(key)));
+            String dataContent = FileUtils.readFileToString(LocationUtil.getResources("datapool.cfg"));
+            properties.setProperty(key, RSADealUtil.privateDecrypt(publicKey, dataContent));
         } catch (Exception e) {
-            System.err.println("decryptYmlContent error. " + e.getMessage());
+            LocationUtil.printException(new UtilException("decryptYmlContent error.", e));
         }
 
         return properties;
-    }
-
-    /**
-     * 判断运行环境是否为Jar包
-     *
-     * @return true Jar  false Idea
-     */
-    public static boolean isRunningWithJar() {
-        URL resource = LoadYmlConfiguration.class.getResource("/");
-        System.out.println(resource);
-        return Objects.equals("jar", resource.getProtocol());
     }
 
 }
