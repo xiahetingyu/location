@@ -12,7 +12,7 @@
 
     <groupId>com.xiahe.yue</groupId>
     <artifactId>location</artifactId>
-    <version>location.jar</version>
+    <version>final</version>
     <packaging>jar</packaging>
 
     <properties>

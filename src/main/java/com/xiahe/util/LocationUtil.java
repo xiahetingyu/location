@@ -1,6 +1,6 @@
 package com.xiahe.util;
 
-import com.xiahe.config.LoadYmlConfiguration;
+import com.xiahe.config.ApplicationConfiguration;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -28,7 +28,7 @@ public class LocationUtil {
      * @throws MalformedURLException 路径格式异常
      */
     public static File getResources(String resources) throws MalformedURLException {
-        File currentPath = new File(ResourceUtils.extractArchiveURL(LoadYmlConfiguration.class.getResource("/")).getPath());
+        File currentPath = new File(ResourceUtils.extractArchiveURL(ApplicationConfiguration.class.getResource("/")).getPath());
         currentPath = isRunningWithJar() ? currentPath.getParentFile() : currentPath.getParentFile().getParentFile();
         return new File(new File(currentPath, "resources"), resources);
     }
@@ -40,7 +40,7 @@ public class LocationUtil {
      * @return true Jar  false Idea
      */
     public static boolean isRunningWithJar() {
-        URL resource = LoadYmlConfiguration.class.getResource("/");
+        URL resource = ApplicationConfiguration.class.getResource("/");
         return Objects.equals("jar", resource.getProtocol());
     }
 

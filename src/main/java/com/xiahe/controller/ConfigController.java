@@ -1,6 +1,7 @@
 package com.xiahe.controller;
 
 import com.xiahe.service.ConfigService;
+import com.xiahe.util.ResourcesLocationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,11 @@ public class ConfigController {
     public Object save(String key, String value) {
         configService.setConfigValue(key, value);
         return "ok";
+    }
+
+    @RequestMapping("getPath")
+    public Object getPath(String resources) {
+        return ResourcesLocationUtil.getResources(resources);
     }
 
 }
