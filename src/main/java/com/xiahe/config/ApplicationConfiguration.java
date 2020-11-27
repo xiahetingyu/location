@@ -7,6 +7,7 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertySourceFactory;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.util.Optional;
@@ -51,7 +52,9 @@ public class ApplicationConfiguration implements PropertySourceFactory {
         String usernameKey = "spring.datasource.username";
         String passwordKey = "spring.datasource.password";
         if (properties.containsKey(usernameKey) && !properties.containsKey(passwordKey)) {
-            properties.setProperty(passwordKey, System.getenv("DatabasePassword"));
+            String databasePassword = System.getenv("DatabasePassword");
+            Assert.notNull(databasePassword, "Environment Variable DatabasePassword Not Configured.");
+            properties.setProperty(passwordKey, databasePassword);
         }
     }
 
