@@ -1,6 +1,6 @@
 package com.xiahe.controller;
 
-import com.xiahe.service.ConfigService;
+import com.xiahe.service.ParameterService;
 import com.xiahe.util.ResourcesLocationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConfigController {
 
     @Autowired
-    private ConfigService configService;
+    private ParameterService configService;
 
     @RequestMapping("select")
     public Object select(String key) {
-        return configService.getConfigValue(key);
+        return configService.getParameterValue(key);
     }
 
     @RequestMapping("save")
     public Object save(String key, String value) {
-        configService.setConfigValue(key, value);
+        configService.setParameterValue(key, value);
         return "ok";
     }
 

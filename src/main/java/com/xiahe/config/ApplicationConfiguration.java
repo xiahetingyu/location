@@ -20,6 +20,10 @@ import java.util.Properties;
  **/
 public class ApplicationConfiguration implements PropertySourceFactory {
 
+    public ApplicationConfiguration() {
+        System.out.println("调用");
+    }
+
     @Override
     public PropertySource<?> createPropertySource(String name, EncodedResource encodedResource) {
         //获取配置文件名
@@ -39,6 +43,7 @@ public class ApplicationConfiguration implements PropertySourceFactory {
         updateDatabasePassword(properties);
 
         //返回加载后的配置内容
+        assert name != null;
         return new PropertiesPropertySource(name, properties);
     }
 

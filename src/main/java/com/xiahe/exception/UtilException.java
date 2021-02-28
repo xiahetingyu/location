@@ -15,7 +15,6 @@ public class UtilException extends RuntimeException {
         super(message);
     }
 
-
     public UtilException(Throwable cause) {
         super(cause);
     }

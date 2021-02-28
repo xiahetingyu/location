@@ -15,13 +15,13 @@ import java.util.Optional;
  * @create: 2020.11.22 16:59
  **/
 @Component
-public class ConfigServiceImpl implements ConfigService {
+public class ConfigServiceImpl implements ParameterService {
 
     @Autowired
     private ConfigRepository configRepository;
 
     @Override
-    public String getConfigValue(String key) {
+    public String getParameterValue(String key) {
         ConfigEntity configEntity = new ConfigEntity();
         configEntity.setMyKey(key);
         Optional<ConfigEntity> findOne = configRepository.findOne(Example.of(configEntity));
@@ -30,7 +30,7 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     @Override
-    public void setConfigValue(String key, String value) {
+    public void setParameterValue(String key, String value) {
         ConfigEntity configEntity = new ConfigEntity();
         configEntity.setMyKey(key);
         configEntity.setMyValue(value);
